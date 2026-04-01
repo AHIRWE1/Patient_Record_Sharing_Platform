@@ -1,0 +1,85 @@
+{% extends "base.html" %}
+
+{% block title %}Patient Detail - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-4 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-person-lines-fill me-2"></i>{{ patient.name }}
+    </h1>
+    <div>
+        {% if current_user.role in ['admin', 'doctor'] %}
+        <a href="{{ url_for('records.add_record', patient_id=patient.id) }}" class="btn btn-success me-2">
+            <i class="bi bi-plus-circle me-1"></i>Add Record
+        </a>
+        {% endif %}
+        <a href="{{ url_for('patients.patients') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-list me-1"></i>Patients List
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-4">
+        <div class="card shadow">
+            <div class="card-header bg-primary text-white">
+                <h6 class="mb-0"><i class="bi bi-person-badge me-2"></i>Patient Info</h6>
+            </div>
+            <div class="card-body">
+                <p><strong>ID:</strong> {{ patient.id }}</p>
+                <p><strong>National ID:</strong> {{ patient.national_id }}</p>
+                <p><strong>Gender:</strong> {{ patient.gender }}</p>
+                <p><strong>DOB:</strong> {{ patient.dob.strftime('%d %B %Y') }}</p>
+                <p><strong>Hospital:</strong> {{ patient.hospital.name }}</p>
+                <p><strong>Registered:</strong> {{ patient.created_at.strftime('%d/%m/%Y %H:%M') }}</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-8">
+        <div class="card shadow">
+            <div class="card-header d-flex justify-content-between align-items-center">
+                <h6 class="mb-0"><i class="bi bi-file-medical me-2"></i>Recent Records ({{ records|length }})</h6>
+                <a href="{{ url_for('records.view_records', patient_id=patient.id) }}" class="btn btn-sm btn-outline-primary">View All</a>
+            </div>
+            <div class="card-body p-0">
+                {% if records %}
+                <div class="table-responsive">
+                    <table class="table table-hover mb-0">
+                        <thead class="table-light">
+                            <tr>
+                                <th>Date</th>
+                                <th>Summary</th>
+                                <th>Doctor</th>
+                            </tr>
+                        </thead>
+                        <tbody>
+                            {% for record in records[:5] %}
+                            <tr>
+                                <td>{{ record.timestamp.strftime('%d/%m %H:%M') }}</td>
+                                <td>{{ record.diagnosis[:50] }}{{ '...' if record.diagnosis|length > 50 else '' }}</td>
+                                <td>{{ record.doctor.username if record.doctor else '-' }}</td>
+                            </tr>
+                            {% endfor %}
+                        </tbody>
+                    </table>
+                </div>
+                {% else %}
+                <div class="p-5 text-center text-muted">
+                    <i class="bi bi-clipboard-x display-4 mb-3"></i>
+                    <p>No medical records yet</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+
+<div class="row mt-4">
+    <div class="col-12">
+        <a href="{{ url_for('shares.share') }}" class="btn btn-warning">
+            <i class="bi bi-share me-2"></i>Share with Another Hospital
+        </a>
+    </div>
+</div>
+{% endblock %}
+

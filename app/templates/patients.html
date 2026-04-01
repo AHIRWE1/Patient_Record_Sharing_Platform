@@ -1,0 +1,109 @@
+{% extends "base.html" %}
+
+{% block title %}Patients - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-people me-2"></i>Patients Management
+    </h1>
+    <div class="btn-toolbar gap-2">
+        <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+        </a>
+        {% if current_user.role in ['admin', 'staff'] %}
+        <a href="{{ url_for('patients.register_patient') }}" class="btn btn-primary">
+            <i class="bi bi-plus-circle me-1"></i>New Patient
+        </a>
+        {% endif %}
+    </div>
+</div>
+
+<!-- Guidance banner -->
+<div class="alert alert-info d-flex align-items-start gap-3 mb-4" role="alert">
+    <i class="bi bi-lightbulb-fill fs-4 mt-1 flex-shrink-0"></i>
+    <div>
+        <strong>Patients Page:</strong> Use this page to register new patients and view existing patient records.
+        Click <strong>New Patient</strong> to register, or use the search box to find a patient by name or National ID.
+        Click the <i class="bi bi-eye"></i> button to view details or <i class="bi bi-file-medical"></i> to see medical records.
+    </div>
+</div>
+
+<!-- Search Bar -->
+<div class="card mb-4 shadow">
+    <div class="card-body">
+        <div class="row align-items-center">
+            <div class="col-md-6">
+                <div class="input-group">
+                    <span class="input-group-text"><i class="bi bi-search"></i></span>
+                    <input type="text" class="form-control search-input" data-target="#patientsTable" 
+                           placeholder="Search by name or National ID..." value="{{ search }}">
+                </div>
+            </div>
+            <div class="col-md-6 text-end">
+                <span class="text-muted">Showing {{ patients|length }} patients</span>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Patients Table -->
+<div class="card shadow">
+    <div class="card-body p-0">
+        <div class="table-responsive">
+            <table class="table table-hover mb-0" id="patientsTable">
+                <thead class="table-light">
+                    <tr>
+                        <th>ID</th>
+                        <th>Name</th>
+                        <th>National ID</th>
+                        <th>Gender</th>
+                        <th>DOB</th>
+                        <th>Registered</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for patient in patients %}
+                    <tr>
+                        <td><span class="badge bg-primary">{{ patient.id }}</span></td>
+                        <td>
+                            <strong>{{ patient.name }}</strong>
+                        </td>
+                        <td>{{ patient.national_id }}</td>
+                        <td>
+                            <span class="badge {{ 'bg-success' if patient.gender == 'Male' else 'bg-info' }}">
+                                {{ patient.gender }}
+                            </span>
+                        </td>
+                        <td>{{ patient.dob.strftime('%d/%m/%Y') }}</td>
+                        <td>{{ patient.created_at.strftime('%d/%m %H:%M') }}</td>
+                        <td>
+                            <a href="{{ url_for('patients.patient_detail', patient_id=patient.id) }}" 
+                               class="btn btn-sm btn-outline-primary me-1" title="View Details">
+                                <i class="bi bi-eye"></i>
+                            </a>
+                            <a href="{{ url_for('records.view_records', patient_id=patient.id) }}"
+                               class="btn btn-sm btn-outline-success" title="Medical Records">
+                                <i class="bi bi-file-medical"></i>
+                            </a>
+                        </td>
+                    </tr>
+                    {% else %}
+                    <tr>
+                        <td colspan="7" class="text-center py-5 text-muted">
+                            <i class="bi bi-people display-4 mb-3 opacity-50"></i>
+                            <div>No patients found</div>
+                            {% if current_user.role in ['admin', 'staff'] %}
+                            <a href="{{ url_for('patients.register_patient') }}" class="btn btn-primary mt-2">Register First Patient</a>
+                            {% endif %}
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

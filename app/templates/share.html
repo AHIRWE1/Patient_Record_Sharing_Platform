@@ -1,0 +1,125 @@
+{% extends "base.html" %}
+
+{% block title %}Record Sharing - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-share me-2"></i>Inter-Hospital Record Sharing
+    </h1>
+    <div class="d-flex gap-2">
+        <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+        </a>
+        <a href="{{ url_for('patients.patients') }}" class="btn btn-outline-primary">
+            <i class="bi bi-people me-1"></i>Patients
+        </a>
+    </div>
+</div>
+
+<!-- Guidance banner -->
+<div class="alert alert-warning d-flex align-items-start gap-3 mb-4" role="alert">
+    <i class="bi bi-share-fill fs-4 mt-1 flex-shrink-0"></i>
+    <div>
+        <strong>Share Records Page:</strong> Grant view-only access to another hospital so they can see a patient's
+        full medical history during a transfer or referral. Select the patient and target hospital, then click
+        <strong>Send Request</strong>. The other hospital must approve before they can view any records.
+        Incoming requests appear on the right — you can approve or reject them.
+    </div>
+</div>
+
+<div class="row">
+    <!-- Outgoing Share Requests -->
+    <div class="col-lg-8 mb-4">
+        <div class="card shadow">
+            <div class="card-header bg-warning text-dark">
+                <h6 class="mb-0 fw-bold">
+                    <i class="bi bi-arrow-right-circle me-2"></i>Share Patient Records
+                </h6>
+            </div>
+            <div class="card-body">
+                {% if patients %}
+                <form method="POST" action="{{ url_for('shares.request_share') }}" class="needs-validation" novalidate>
+                    <div class="row align-items-end">
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label fw-bold">Select Patient</label>
+                            <select class="form-select" name="patient_id" required>
+                                <option value="">Choose patient to share...</option>
+                                {% for patient in patients %}
+                                <option value="{{ patient.id }}">{{ patient.name }} ({{ patient.national_id }})</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-5 mb-3">
+                            <label class="form-label fw-bold">Target Hospital</label>
+                            <select class="form-select" name="target_hospital" required>
+                                <option value="">Select hospital...</option>
+                                {% for hospital in other_hospitals %}
+                                <option value="{{ hospital.name }}">{{ hospital.name }}</option>
+                                {% endfor %}
+                            </select>
+                        </div>
+                        <div class="col-md-2 mb-3">
+                            <button type="submit" class="btn btn-warning w-100 py-3 fw-bold">
+                                <i class="bi bi-send me-1"></i>Send Request
+                            </button>
+                        </div>
+                    </div>
+                </form>
+                {% else %}
+                <div class="text-center py-5 text-muted">
+                    <i class="bi bi-people display-4 mb-3"></i>
+                    <p>No patients to share. <a href="{{ url_for('patients.register_patient') }}">Register patients first</a></p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+    
+    <!-- Incoming Requests -->
+    <div class="col-lg-4">
+        <div class="card shadow">
+            <div class="card-header bg-info text-white">
+                <h6 class="mb-0">
+                    <i class="bi bi-arrow-left-circle me-2"></i>Incoming Requests ({{ incoming|length }})
+                </h6>
+            </div>
+            <div class="card-body p-0">
+                {% if incoming %}
+                <div class="list-group list-group-flush" style="max-height: 400px; overflow-y: auto;">
+                    {% for req in incoming %}
+                    <div class="list-group-item">
+                        <div class="d-flex w-100 justify-content-between">
+                            <h6 class="mb-1">{{ req.patient.name }}</h6>
+                            <span class="badge {{ 'bg-success' if req.status == 'approved' else ('bg-danger' if req.status == 'rejected' else 'bg-warning text-dark') }}">
+                                {{ req.status|upper }}
+                            </span>
+                        </div>
+                        <p class="mb-1 text-muted small">
+                            From: {{ req.from_hospital.name }} | {{ req.requested_at.strftime('%d/%m %H:%M') }}
+                        </p>
+                        {% if req.status == 'pending' %}
+                        <a href="{{ url_for('shares.approve_share', request_id=req.id) }}" 
+                           class="btn btn-sm btn-success">Approve</a>
+                        <a href="{{ url_for('shares.reject_share', request_id=req.id) }}"
+                           class="btn btn-sm btn-outline-danger confirm-delete">Reject</a>
+                        {% endif %}
+                        {% if req.status == 'approved' %}
+                        <a href="{{ url_for('shares.view_shared_record', patient_id=req.patient_id) }}" 
+                           class="btn btn-sm btn-primary mt-1">View Records</a>
+                        {% endif %}
+                    </div>
+                    {% endfor %}
+                </div>
+                {% else %}
+                <div class="p-4 text-center text-muted">
+                    <i class="bi bi-inbox display-6 mb-2"></i>
+                    <p>No incoming requests</p>
+                </div>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

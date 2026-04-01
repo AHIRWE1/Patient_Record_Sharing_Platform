@@ -1,0 +1,253 @@
+{% extends "base.html" %}
+
+{% block title %}Help & Guide - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="bi bi-question-circle me-2"></i>Help &amp; User Guide
+    </h1>
+</div>
+
+<!-- Quick-start alert -->
+<div class="alert alert-info d-flex align-items-start gap-3 mb-4" role="alert">
+    <i class="bi bi-lightbulb-fill fs-4 mt-1 flex-shrink-0"></i>
+    <div>
+        <strong>Quick start:</strong> If this is your first time, begin by registering your hospital,
+        then add your staff and doctors, and finally start registering patients.
+        This guide explains each step in detail below.
+    </div>
+</div>
+
+<!-- Role cards -->
+<div class="row g-4 mb-5">
+    <div class="col-md-4">
+        <div class="card shadow h-100 border-top border-primary border-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-person-gear display-5 text-primary mb-3 d-block"></i>
+                <h5 class="fw-bold">Hospital Admin</h5>
+                <p class="text-muted small mb-3">Manages the hospital account and users</p>
+                <ul class="list-unstyled text-start small">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Register the hospital</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Add staff &amp; doctors</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Approve share requests</li>
+                    <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>View audit logs</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow h-100 border-top border-success border-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-person-badge display-5 text-success mb-3 d-block"></i>
+                <h5 class="fw-bold">Hospital Staff</h5>
+                <p class="text-muted small mb-3">Handles patient registration and sharing</p>
+                <ul class="list-unstyled text-start small">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Register new patients</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Search patient records</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Send share requests</li>
+                    <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>Approve incoming shares</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4">
+        <div class="card shadow h-100 border-top border-info border-4">
+            <div class="card-body text-center p-4">
+                <i class="bi bi-stethoscope display-5 text-info mb-3 d-block"></i>
+                <h5 class="fw-bold">Doctor</h5>
+                <p class="text-muted small mb-3">Updates clinical records for patients</p>
+                <ul class="list-unstyled text-start small">
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>View patient history</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Add diagnosis &amp; tests</li>
+                    <li class="mb-2"><i class="bi bi-check-circle-fill text-success me-2"></i>Add treatment plans</li>
+                    <li class="mb-0"><i class="bi bi-check-circle-fill text-success me-2"></i>Add clinical notes</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Step-by-step guides -->
+<h4 class="fw-bold text-primary mb-3"><i class="bi bi-list-ol me-2"></i>Step-by-Step Guides</h4>
+
+<div class="row g-4 mb-5">
+
+    <!-- Guide 1: Register a patient -->
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-success text-white fw-bold">
+                <i class="bi bi-person-plus me-2"></i>How to Register a Patient
+            </div>
+            <div class="card-body p-4">
+                <ol class="ps-3 mb-0">
+                    <li class="mb-2">Log in as <strong>Staff</strong> or <strong>Admin</strong>.</li>
+                    <li class="mb-2">In the sidebar, click <strong>Patients</strong>.</li>
+                    <li class="mb-2">Click the <strong class="text-primary">New Patient</strong> button (top right).</li>
+                    <li class="mb-2">Fill in:
+                        <ul class="mt-1">
+                            <li>Full name</li>
+                            <li>Date of birth</li>
+                            <li>Gender</li>
+                            <li>National ID <em class="text-muted">(must be unique)</em></li>
+                        </ul>
+                    </li>
+                    <li class="mb-0">Click <strong>Register Patient</strong>. The patient now appears in the list.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide 2: Update records -->
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-primary text-white fw-bold">
+                <i class="bi bi-clipboard2-plus me-2"></i>How to Update Medical Records
+            </div>
+            <div class="card-body p-4">
+                <ol class="ps-3 mb-0">
+                    <li class="mb-2">Log in as a <strong>Doctor</strong>.</li>
+                    <li class="mb-2">In the sidebar, click <strong>Records</strong>.</li>
+                    <li class="mb-2">Find the patient in the table and click <strong class="text-success">Add</strong>.</li>
+                    <li class="mb-2">Fill in the record form:
+                        <ul class="mt-1">
+                            <li>Diagnosis</li>
+                            <li>Test results</li>
+                            <li>Treatment plan</li>
+                            <li>Clinical notes (optional)</li>
+                        </ul>
+                    </li>
+                    <li class="mb-0">Click <strong>Save Record</strong>. Previous records are preserved — nothing is overwritten.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide 3: Share records -->
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-warning text-dark fw-bold">
+                <i class="bi bi-share me-2"></i>How to Share Records with Another Hospital
+            </div>
+            <div class="card-body p-4">
+                <ol class="ps-3 mb-0">
+                    <li class="mb-2">Log in as <strong>Staff</strong> or <strong>Admin</strong>.</li>
+                    <li class="mb-2">In the sidebar, click <strong>Share Records</strong>.</li>
+                    <li class="mb-2">Select the <strong>patient</strong> to share from the dropdown.</li>
+                    <li class="mb-2">Select the <strong>target hospital</strong> to send the request to.</li>
+                    <li class="mb-2">Click <strong>Send Request</strong>.</li>
+                    <li class="mb-0">The other hospital sees the request in their <em>Incoming Requests</em> panel and clicks <strong>Approve</strong>. After approval they can view the patient's records.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+
+    <!-- Guide 4: Add hospital users -->
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-header bg-secondary text-white fw-bold">
+                <i class="bi bi-person-gear me-2"></i>How to Add Staff or Doctors (Admin only)
+            </div>
+            <div class="card-body p-4">
+                <ol class="ps-3 mb-0">
+                    <li class="mb-2">Log in as <strong>Admin</strong>.</li>
+                    <li class="mb-2">In the sidebar, click <strong>Manage Users</strong>.</li>
+                    <li class="mb-2">Click <strong>Add User</strong>.</li>
+                    <li class="mb-2">Enter:
+                        <ul class="mt-1">
+                            <li>Username <em class="text-muted">(must be unique across all hospitals)</em></li>
+                            <li>Password</li>
+                            <li>Role: <strong>Staff</strong> or <strong>Doctor</strong></li>
+                        </ul>
+                    </li>
+                    <li class="mb-0">Click <strong>Add User</strong>. The new user can now log in.</li>
+                </ol>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- FAQ-style tips -->
+<h4 class="fw-bold text-primary mb-3"><i class="bi bi-patch-question me-2"></i>Common Questions</h4>
+<div class="accordion shadow mb-4" id="faq">
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#faq1">
+                Can a patient's record be deleted or edited?
+            </button>
+        </h2>
+        <div id="faq1" class="accordion-collapse collapse show" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+                No. Medical records are append-only — each new entry is added with a timestamp.
+                Previous entries are never modified or deleted, ensuring a full and trustworthy history.
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq2">
+                What does "view-only" sharing mean?
+            </button>
+        </h2>
+        <div id="faq2" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+                When Hospital A shares a patient record with Hospital B, Hospital B can only
+                <em>read</em> the records — they cannot add, edit, or delete anything. All write
+                access remains with the originating hospital.
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq3">
+                What if the National ID is already taken?
+            </button>
+        </h2>
+        <div id="faq3" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+                The system will show an error message if a patient with that National ID already
+                exists in your hospital. National IDs must be unique per hospital to avoid duplicate records.
+            </div>
+        </div>
+    </div>
+
+    <div class="accordion-item">
+        <h2 class="accordion-header">
+            <button class="accordion-button collapsed" type="button" data-bs-toggle="collapse" data-bs-target="#faq4">
+                Can I access the platform on my phone?
+            </button>
+        </h2>
+        <div id="faq4" class="accordion-collapse collapse" data-bs-parent="#faq">
+            <div class="accordion-body text-muted">
+                Yes. MediShare Rwanda is fully responsive and works on smartphones, tablets,
+                laptops, and desktop computers using any modern browser (Chrome or Edge recommended).
+                On mobile, tap the <i class="bi bi-list"></i> menu button in the top-left to open the sidebar.
+            </div>
+        </div>
+    </div>
+
+</div>
+
+<!-- Need help CTA -->
+<div class="card border-0 shadow text-center mb-2">
+    <div class="card-body p-4">
+        <h5 class="fw-bold text-primary mb-2">Still need help?</h5>
+        <p class="text-muted mb-3">Contact your system administrator or hospital IT support for assistance.</p>
+        <a href="{{ url_for('main.about') }}" class="btn btn-outline-primary me-2">
+            <i class="bi bi-info-circle me-1"></i>About the Platform
+        </a>
+        {% if current_user.is_authenticated %}
+        <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-primary">
+            <i class="bi bi-house-door me-1"></i>Go to Dashboard
+        </a>
+        {% else %}
+        <a href="{{ url_for('auth.login') }}" class="btn btn-primary">
+            <i class="bi bi-box-arrow-in-right me-1"></i>Login
+        </a>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

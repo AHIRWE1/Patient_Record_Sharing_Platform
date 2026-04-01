@@ -1,0 +1,96 @@
+{% extends "base.html" %}
+
+{% block title %}Add Medical Record - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-3 mb-4 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-file-earmark-plus me-2"></i>Add Medical Record
+    </h1>
+    <div>
+        <a href="{{ url_for('patients.patient_detail', patient_id=patient.id) }}" class="btn btn-outline-primary me-2">
+            <i class="bi bi-arrow-left me-1"></i>Back
+        </a>
+        <a href="{{ url_for('records.records') }}" class="btn btn-outline-secondary">
+            <i class="bi bi-list me-1"></i>All Records
+        </a>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-lg-8">
+        <div class="card shadow-lg border-0">
+            <div class="card-header bg-success text-white py-4">
+                <div class="row align-items-center">
+                    <div class="col">
+                        <h4 class="mb-0 fw-bold">
+                            <i class="bi bi-clipboard-pulse me-2"></i>New Record for {{ patient.name }}
+                        </h4>
+                        <small class="opacity-75">National ID: {{ patient.national_id }} | {{ patient.gender }} | DOB: {{ patient.dob.strftime('%d/%m/%Y') }}</small>
+                    </div>
+                    <div class="col-auto">
+                        <span class="badge bg-light text-dark px-3 py-2 fs-6">
+                            {{ current_user.hospital.name }}
+                        </span>
+                    </div>
+                </div>
+            </div>
+            <div class="card-body p-5">
+                <form method="POST">
+                    <div class="row">
+                        <div class="col-md-12 mb-4">
+                            <label for="diagnosis" class="form-label fw-bold">Diagnosis</label>
+                            <textarea class="form-control" id="diagnosis" name="diagnosis" rows="3" 
+                                      placeholder="Enter diagnosis..."></textarea>
+                        </div>
+                    </div>
+                    <div class="row">
+                        <div class="col-md-6 mb-4">
+                            <label for="tests" class="form-label fw-bold">Test Results</label>
+                            <textarea class="form-control" id="tests" name="tests" rows="2" 
+                                      placeholder="Lab tests, imaging results..."></textarea>
+                        </div>
+                        <div class="col-md-6 mb-4">
+                            <label for="treatment" class="form-label fw-bold">Treatment Plan</label>
+                            <textarea class="form-control" id="treatment" name="treatment" rows="2" 
+                                      placeholder="Medications, procedures, follow-up..."></textarea>
+                        </div>
+                    </div>
+                    <div class="mb-4">
+                        <label for="clinical_notes" class="form-label fw-bold">Clinical Notes</label>
+                        <textarea class="form-control" id="clinical_notes" name="clinical_notes" rows="4" 
+                                  placeholder="Additional observations, recommendations..."></textarea>
+                    </div>
+                    
+                    <div class="d-grid gap-2 d-md-flex justify-content-md-end">
+                        <button type="submit" class="btn btn-success btn-lg px-5 me-md-2">
+                            <i class="bi bi-save me-2"></i>Save Record
+                        </button>
+                        <a href="{{ url_for('patients.patient_detail', patient_id=patient.id) }}" class="btn btn-outline-secondary px-4">
+                            Cancel
+                        </a>
+                    </div>
+                </form>
+            </div>
+        </div>
+    </div>
+    <div class="col-lg-4">
+        <div class="card shadow">
+            <div class="card-header">
+                <h6 class="mb-0"><i class="bi bi-info-circle me-2"></i>Quick Actions</h6>
+            </div>
+            <div class="card-body">
+                <div class="list-group list-group-flush">
+                    <a href="{{ url_for('records.view_records', patient_id=patient.id) }}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-eye me-2"></i>View History
+                    </a>
+                    <a href="{{ url_for('shares.share') }}" class="list-group-item list-group-item-action">
+                        <i class="bi bi-share me-2"></i>Share Records
+                    </a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}
+

@@ -1,0 +1,141 @@
+{% extends "base.html" %}
+
+{% block title %}About - MediShare Rwanda{% endblock %}
+
+{% block content %}
+<!-- Page header -->
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="bi bi-info-circle me-2"></i>About MediShare Rwanda
+    </h1>
+    {% if current_user.is_authenticated %}
+    <a href="{{ url_for('dashboard.dashboard') }}" class="btn btn-outline-primary">
+        <i class="bi bi-arrow-left me-1"></i>Back to Dashboard
+    </a>
+    {% endif %}
+</div>
+
+<!-- Mission hero card -->
+<div class="card shadow mb-4" style="background: linear-gradient(135deg,#0b2447,#19376d); color:#fff; border:none; border-radius:1.25rem;">
+    <div class="card-body p-4 p-md-5 text-center">
+        <i class="bi bi-heart-pulse display-3 mb-3 d-block" style="color:#93c5fd;"></i>
+        <h2 class="fw-bold mb-3">Our Mission</h2>
+        <p class="lead mb-0" style="opacity:.9; max-width:720px; margin:auto;">
+            To make healthcare systems empathetic, dignified, and humane again - using technology
+            to enhance the management, access, and sharing of patient information among healthcare
+            professionals in Rwanda and across Africa.
+        </p>
+    </div>
+</div>
+
+<!-- Platform purpose -->
+<div class="card shadow mb-4">
+    <div class="card-body p-4">
+        <h4 class="fw-bold text-primary mb-3"><i class="bi bi-question-circle me-2"></i>What is this platform?</h4>
+        <p class="text-muted mb-0">
+            This platform enables <strong>secure sharing of patient records between hospitals</strong>,
+            improving continuity of care and reducing repeated medical tests. Healthcare facilities in Rwanda
+            like many across Africa - often operate on isolated patient record systems, meaning that when
+            a patient transfers or seeks care elsewhere, their history is incomplete or unavailable.
+            MediShare Rwanda solves this by providing a centralised, secure web-based system where
+            authorised medical workers can retrieve and exchange patient records across institutions.
+        </p>
+    </div>
+</div>
+
+<!-- Problem + Solution -->
+<div class="row g-4 mb-4">
+    <div class="col-md-6">
+        <div class="card shadow h-100 border-start border-danger border-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-danger mb-3"><i class="bi bi-exclamation-triangle me-2"></i>The Problem</h5>
+                <ul class="text-muted ps-3 mb-0">
+                    <li class="mb-2">Patients lose records when transferring between hospitals</li>
+                    <li class="mb-2">Doctors repeat tests because previous results are unavailable</li>
+                    <li class="mb-2">Isolated systems with no interoperability between facilities</li>
+                    <li class="mb-2">Treatment delays due to incomplete patient histories</li>
+                    <li class="mb-0">Higher healthcare costs from redundant procedures</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow h-100 border-start border-success border-4">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-success mb-3"><i class="bi bi-check-circle me-2"></i>Our Solution</h5>
+                <ul class="text-muted ps-3 mb-0">
+                    <li class="mb-2">Centralised, secure digital patient record storage</li>
+                    <li class="mb-2">Approved inter-hospital record sharing (view-only)</li>
+                    <li class="mb-2">Role-based access - right information to the right people</li>
+                    <li class="mb-2">Full audit trail for accountability and compliance</li>
+                    <li class="mb-0">Scalable from Rwanda to the rest of Africa</li>
+                </ul>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Key features -->
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0 fw-bold"><i class="bi bi-star me-2"></i>Key Features</h5>
+    </div>
+    <div class="card-body p-0">
+        <div class="row g-0">
+            {% set features = [
+                ('bi-lock-fill', 'primary', 'Secure Authentication', 'Role-based login with bcrypt-hashed passwords. Each user role (Admin, Staff, Doctor) sees only what they need.'),
+                ('bi-person-plus-fill', 'success', 'Patient Registration', 'Staff register patients with name, date of birth, gender, and national ID. A unique identifier is generated automatically.'),
+                ('bi-clipboard2-pulse-fill', 'info', 'Medical Records', 'Doctors add diagnoses, tests, treatments, and clinical notes. All entries are timestamped and never overwritten.'),
+                ('bi-arrow-left-right', 'warning', 'Inter-Hospital Sharing', 'Send secure sharing requests to other hospitals. They approve or reject - approved hospitals get view-only access.'),
+                ('bi-journal-check', 'danger', 'Audit Trail', 'Every action (login, record access, update, share) is logged with a timestamp for full system accountability.'),
+                ('bi-phone-fill', 'secondary', 'Mobile Accessible', 'Fully responsive design - works on desktop, tablet, and mobile phones for access anywhere in the hospital.')
+            ] %}
+            {% for icon, colour, title, desc in features %}
+            <div class="col-md-6 p-4 border-bottom border-end-md">
+                <div class="d-flex gap-3 align-items-start">
+                    <div class="text-{{ colour }} fs-4 flex-shrink-0">
+                        <i class="bi {{ icon }}"></i>
+                    </div>
+                    <div>
+                        <h6 class="fw-bold mb-1">{{ title }}</h6>
+                        <p class="text-muted mb-0 small">{{ desc }}</p>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+    </div>
+</div>
+
+<!-- Tech stack + Context -->
+<div class="row g-4 mb-2">
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-code-square me-2"></i>Technology Stack</h5>
+                <div class="d-flex flex-wrap gap-2">
+                    <span class="badge bg-primary fs-6 px-3 py-2">Python / Flask</span>
+                    <span class="badge bg-info fs-6 px-3 py-2">PostgreSQL (Neon)</span>
+                    <span class="badge bg-success fs-6 px-3 py-2">Bootstrap 5</span>
+                    <span class="badge bg-warning text-dark fs-6 px-3 py-2">SQLAlchemy</span>
+                    <span class="badge bg-secondary fs-6 px-3 py-2">bcrypt</span>
+                    <span class="badge bg-dark fs-6 px-3 py-2">Gunicorn</span>
+                </div>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-6">
+        <div class="card shadow h-100">
+            <div class="card-body p-4">
+                <h5 class="fw-bold text-primary mb-3"><i class="bi bi-geo-alt me-2"></i>Context</h5>
+                <p class="text-muted mb-0">
+                    Rwanda is the first implementation site due to its strong investment in digital health
+                    infrastructure and national health information systems. This prototype is designed to
+                    be scalable across Africa to address similar challenges in other countries.
+                    Built as part of an academic project at <strong>African Leadership University</strong>.
+                </p>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,343 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>MediShare Rwanda — Integrated Patient Record Sharing Platform</title>
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css" rel="stylesheet">
+    <style>
+        :root { --primary: #0d6efd; --dark: #0b2447; }
+
+        body { font-family: 'Segoe UI', sans-serif; }
+
+        /* ── Hero ── */
+        .hero {
+            background: linear-gradient(135deg, #0b2447 0%, #19376d 60%, #0d6efd 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            color: #fff;
+            position: relative;
+            overflow: hidden;
+        }
+        .hero::before {
+            content: '';
+            position: absolute;
+            inset: 0;
+            background: url("data:image/svg+xml,%3Csvg width='60' height='60' viewBox='0 0 60 60' xmlns='http://www.w3.org/2000/svg'%3E%3Cg fill='none' fill-rule='evenodd'%3E%3Cg fill='%23ffffff' fill-opacity='0.04'%3E%3Cpath d='M36 34v-4h-2v4h-4v2h4v4h2v-4h4v-2h-4zm0-30V0h-2v4h-4v2h4v4h2V6h4V4h-4zM6 34v-4H4v4H0v2h4v4h2v-4h4v-2H6zM6 4V0H4v4H0v2h4v4h2V6h4V4H6z'/%3E%3C/g%3E%3C/g%3E%3C/svg%3E");
+        }
+        .hero-badge {
+            background: rgba(255,255,255,0.15);
+            border: 1px solid rgba(255,255,255,0.3);
+            border-radius: 50px;
+            padding: 6px 18px;
+            font-size: 0.85rem;
+            display: inline-block;
+            margin-bottom: 1.5rem;
+            backdrop-filter: blur(4px);
+        }
+        .hero h1 { font-size: clamp(2rem, 5vw, 3.5rem); font-weight: 800; line-height: 1.15; }
+        .hero .lead { font-size: clamp(1rem, 2.5vw, 1.2rem); opacity: .85; }
+        .hero-card {
+            background: rgba(255,255,255,0.1);
+            border: 1px solid rgba(255,255,255,0.2);
+            border-radius: 1rem;
+            padding: 1.5rem;
+            backdrop-filter: blur(8px);
+            text-align: center;
+            transition: transform .3s;
+        }
+        .hero-card:hover { transform: translateY(-4px); }
+        .hero-card i { font-size: 2rem; margin-bottom: .75rem; }
+        .hero-card p { font-size: .9rem; opacity: .9; margin: 0; }
+
+        /* ── Buttons ── */
+        .btn-hero-primary {
+            background: #fff; color: var(--dark);
+            border: none; font-weight: 700;
+            padding: .85rem 2rem; border-radius: .75rem;
+            font-size: 1.05rem; transition: all .3s;
+        }
+        .btn-hero-primary:hover { background: #e9f0ff; color: var(--primary); transform: translateY(-2px); box-shadow: 0 8px 24px rgba(0,0,0,.2); }
+        .btn-hero-outline {
+            background: transparent; color: #fff;
+            border: 2px solid rgba(255,255,255,.6);
+            font-weight: 600; padding: .85rem 2rem;
+            border-radius: .75rem; font-size: 1.05rem;
+            transition: all .3s; text-decoration: none; display: inline-block;
+        }
+        .btn-hero-outline:hover { background: rgba(255,255,255,.15); color: #fff; border-color: #fff; transform: translateY(-2px); }
+
+        /* ── Features section ── */
+        .features { padding: 80px 0; background: #f8f9fa; }
+        .feature-card {
+            background: #fff; border-radius: 1.25rem;
+            padding: 2rem; box-shadow: 0 4px 20px rgba(0,0,0,.07);
+            transition: all .3s; height: 100%;
+        }
+        .feature-card:hover { transform: translateY(-6px); box-shadow: 0 12px 32px rgba(0,0,0,.12); }
+        .feature-icon {
+            width: 64px; height: 64px; border-radius: 1rem;
+            display: flex; align-items: center; justify-content: center;
+            font-size: 1.75rem; margin-bottom: 1.25rem;
+        }
+
+        /* ── How it works ── */
+        .how-it-works { padding: 80px 0; }
+        .step-circle {
+            width: 56px; height: 56px; border-radius: 50%;
+            background: var(--primary); color: #fff;
+            font-size: 1.4rem; font-weight: 800;
+            display: flex; align-items: center; justify-content: center;
+            flex-shrink: 0;
+        }
+
+        /* ── Stats strip ── */
+        .stats-strip { background: var(--dark); color: #fff; padding: 48px 0; }
+        .stat-item h2 { font-size: 2.5rem; font-weight: 800; color: #60a5fa; }
+
+        /* ── CTA ── */
+        .cta-section {
+            background: linear-gradient(135deg, #0d6efd, #0b2447);
+            color: #fff; padding: 80px 0; text-align: center;
+        }
+
+        /* ── Navbar ── */
+        .landing-nav { position: absolute; top: 0; left: 0; right: 0; z-index: 100; padding: 1.25rem 0; }
+        .landing-nav .navbar-brand { font-weight: 800; font-size: 1.4rem; color: #fff !important; }
+        .landing-nav .nav-link { color: rgba(255,255,255,.85) !important; font-weight: 500; }
+        .landing-nav .nav-link:hover { color: #fff !important; }
+        .landing-nav .btn-nav { background: rgba(255,255,255,.15); border: 1px solid rgba(255,255,255,.4); color: #fff; padding: .45rem 1.25rem; border-radius: .6rem; font-weight: 600; transition: all .3s; }
+        .landing-nav .btn-nav:hover { background: #fff; color: var(--dark); }
+
+        /* ── Footer ── */
+        footer { background: #0b2447; color: rgba(255,255,255,.7); padding: 2rem 0; font-size: .9rem; }
+    </style>
+</head>
+<body>
+
+<!-- ── Navbar ── -->
+<nav class="landing-nav">
+    <div class="container d-flex justify-content-between align-items-center">
+        <a class="navbar-brand" href="/"><i class="bi bi-heart-pulse me-2"></i>MediShare Rwanda</a>
+        <div class="d-flex gap-2 align-items-center">
+            <a href="/about" class="nav-link d-none d-md-inline">About</a>
+            <a href="/help" class="nav-link d-none d-md-inline">Help</a>
+            <a href="/login" class="btn btn-nav ms-2">Login</a>
+        </div>
+    </div>
+</nav>
+
+<!-- ── Hero ── -->
+<section class="hero">
+    <div class="container py-5 mt-5">
+        <div class="row align-items-center gy-5">
+            <div class="col-lg-7">
+                <div class="hero-badge">
+                    <i class="bi bi-shield-check me-1"></i> Secure · Interoperable · Rwanda-first
+                </div>
+                <h1>Integrated Patient Record<br><span style="color:#93c5fd;">Sharing Platform</span></h1>
+                <p class="lead my-4">
+                    A secure, web-based platform that enables hospitals across Rwanda to store,
+                    retrieve, and share patient records in real time - improving continuity of care
+                    and reducing repeated medical tests.
+                </p>
+                <div class="d-flex flex-wrap gap-3 mt-4">
+                    <a href="/login" class="btn-hero-primary">
+                        <i class="bi bi-box-arrow-in-right me-2"></i>Login to Platform
+                    </a>
+                    <a href="/register_hospital" class="btn-hero-outline">
+                        <i class="bi bi-hospital me-2"></i>Register Your Hospital
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-5">
+                <div class="row g-3">
+                    <div class="col-6">
+                        <div class="hero-card">
+                            <i class="bi bi-people-fill text-info"></i>
+                            <p><strong>Patient Registry</strong><br>Store & retrieve records instantly</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="hero-card">
+                            <i class="bi bi-share-fill text-warning"></i>
+                            <p><strong>Secure Sharing</strong><br>View-only inter-hospital access</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="hero-card">
+                            <i class="bi bi-file-medical-fill text-success"></i>
+                            <p><strong>Full History</strong><br>Every record preserved</p>
+                        </div>
+                    </div>
+                    <div class="col-6">
+                        <div class="hero-card">
+                            <i class="bi bi-journal-text text-danger"></i>
+                            <p><strong>Audit Trail</strong><br>Complete accountability log</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── Stats strip ── -->
+<div class="stats-strip">
+    <div class="container">
+        <div class="row text-center gy-4">
+            <div class="col-6 col-md-3 stat-item">
+                <h2>3</h2>
+                <p class="mb-0 opacity-75">User Roles</p>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <h2>100%</h2>
+                <p class="mb-0 opacity-75">Record Integrity</p>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <h2>HTTPS</h2>
+                <p class="mb-0 opacity-75">Encrypted Transfer</p>
+            </div>
+            <div class="col-6 col-md-3 stat-item">
+                <h2>99.5%</h2>
+                <p class="mb-0 opacity-75">Target Uptime</p>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- ── Features ── -->
+<section class="features" id="features">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold display-6">Everything your hospital needs</h2>
+            <p class="text-muted lead">Designed for Rwanda's healthcare reality - simple, secure, and scalable across Africa.</p>
+        </div>
+        <div class="row g-4">
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-primary bg-opacity-10 text-primary">
+                        <i class="bi bi-lock-fill"></i>
+                    </div>
+                    <h5 class="fw-bold">Secure Authentication</h5>
+                    <p class="text-muted mb-0">Role-based login (Admin, Staff, Doctor) with bcrypt password hashing ensures only authorised staff access records.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-success bg-opacity-10 text-success">
+                        <i class="bi bi-person-plus-fill"></i>
+                    </div>
+                    <h5 class="fw-bold">Patient Registration</h5>
+                    <p class="text-muted mb-0">Register patients with name, date of birth, gender, and national ID. Each patient gets a unique identifier automatically.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-info bg-opacity-10 text-info">
+                        <i class="bi bi-clipboard2-pulse-fill"></i>
+                    </div>
+                    <h5 class="fw-bold">Medical Records</h5>
+                    <p class="text-muted mb-0">Doctors add diagnoses, test results, treatments, and clinical notes. All records are preserved — nothing is ever overwritten.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-warning bg-opacity-10 text-warning">
+                        <i class="bi bi-arrow-left-right"></i>
+                    </div>
+                    <h5 class="fw-bold">Inter-Hospital Sharing</h5>
+                    <p class="text-muted mb-0">Send a secure share request to another hospital. They approve it and gain view-only access to the patient's history.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-danger bg-opacity-10 text-danger">
+                        <i class="bi bi-journal-check"></i>
+                    </div>
+                    <h5 class="fw-bold">Full Audit Trail</h5>
+                    <p class="text-muted mb-0">Every login, record access, update, and sharing action is timestamped and logged for full accountability.</p>
+                </div>
+            </div>
+            <div class="col-md-6 col-lg-4">
+                <div class="feature-card">
+                    <div class="feature-icon bg-secondary bg-opacity-10 text-secondary">
+                        <i class="bi bi-phone-fill"></i>
+                    </div>
+                    <h5 class="fw-bold">Mobile Friendly</h5>
+                    <p class="text-muted mb-0">Fully responsive - works on desktop, tablet, and mobile phones so staff can access records from any device.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── How it works ── -->
+<section class="how-it-works">
+    <div class="container">
+        <div class="text-center mb-5">
+            <h2 class="fw-bold display-6">How it works</h2>
+            <p class="text-muted lead">Get your hospital set up in three simple steps.</p>
+        </div>
+        <div class="row justify-content-center">
+            <div class="col-lg-8">
+                <div class="d-flex gap-4 mb-4 align-items-start">
+                    <div class="step-circle">1</div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Register your hospital</h5>
+                        <p class="text-muted mb-0">Create a hospital account with one admin. The admin then adds staff and doctors with role-specific access.</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-4 mb-4 align-items-start">
+                    <div class="step-circle">2</div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Register patients & update records</h5>
+                        <p class="text-muted mb-0">Staff register patients at admission. Doctors add diagnoses, tests, and treatment plans - building a complete, timestamped history.</p>
+                    </div>
+                </div>
+                <div class="d-flex gap-4 align-items-start">
+                    <div class="step-circle">3</div>
+                    <div>
+                        <h5 class="fw-bold mb-1">Share records during transfer</h5>
+                        <p class="text-muted mb-0">When a patient moves to another hospital, send a secure sharing request. The receiving hospital approves and instantly sees the full history - no paperwork, no delays.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- ── CTA ── -->
+<section class="cta-section">
+    <div class="container">
+        <i class="bi bi-heart-pulse display-4 mb-3 d-block"></i>
+        <h2 class="fw-bold display-5 mb-3">Ready to improve care continuity?</h2>
+        <p class="lead mb-4 opacity-85">Join the platform connecting Rwanda's hospitals for better patient outcomes.</p>
+        <div class="d-flex justify-content-center gap-3 flex-wrap">
+            <a href="/register_hospital" class="btn-hero-primary">
+                <i class="bi bi-hospital me-2"></i>Register Hospital
+            </a>
+            <a href="/login" class="btn-hero-outline">
+                <i class="bi bi-box-arrow-in-right me-2"></i>Login
+            </a>
+        </div>
+    </div>
+</section>
+
+<!-- ── Footer ── -->
+<footer>
+    <div class="container d-flex flex-column flex-md-row justify-content-between align-items-center gap-2">
+        <span><i class="bi bi-heart-pulse me-1 text-primary"></i> <strong class="text-white">MediShare Rwanda</strong> - Integrated Patient Record Sharing Platform</span>
+        <span>
+            <a href="/about" class="text-decoration-none me-3" style="color: rgba(255,255,255,.6)">About</a>
+            <a href="/help" class="text-decoration-none me-3" style="color: rgba(255,255,255,.6)">Help</a>
+            <a href="/login" class="text-decoration-none" style="color: rgba(255,255,255,.6)">Login</a>
+        </span>
+    </div>
+</footer>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+</body>
+</html>

@@ -1,0 +1,114 @@
+{% extends "base.html" %}
+
+{% block title %}Shared Record - {{ patient.name }} - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2 fw-bold text-primary">
+        <i class="bi bi-folder-symlink me-2"></i>Shared Patient Record
+    </h1>
+    <a href="{{ url_for('shares.share') }}" class="btn btn-outline-secondary">
+        <i class="bi bi-arrow-left me-1"></i>Back to Sharing
+    </a>
+</div>
+
+<!-- Access Info Banner -->
+<div class="alert alert-info d-flex align-items-center mb-4" role="alert">
+    <i class="bi bi-shield-check fs-4 me-3"></i>
+    <div>
+        <strong>View-only access</strong> — Shared by <strong>{{ share.from_hospital.name }}</strong>
+        on {{ share.approved_at.strftime('%d %B %Y at %H:%M') if share.approved_at else 'N/A' }}.
+        You may not edit these records.
+    </div>
+</div>
+
+<!-- Patient Info -->
+<div class="card shadow mb-4">
+    <div class="card-header bg-primary text-white">
+        <h5 class="mb-0"><i class="bi bi-person-circle me-2"></i>Patient Information</h5>
+    </div>
+    <div class="card-body">
+        <div class="row">
+            <div class="col-md-3 col-6 mb-3">
+                <span class="text-muted small d-block">Full Name</span>
+                <strong>{{ patient.name }}</strong>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <span class="text-muted small d-block">Date of Birth</span>
+                <strong>{{ patient.dob.strftime('%d %B %Y') }}</strong>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <span class="text-muted small d-block">Gender</span>
+                <strong>{{ patient.gender }}</strong>
+            </div>
+            <div class="col-md-3 col-6 mb-3">
+                <span class="text-muted small d-block">National ID</span>
+                <strong>{{ patient.national_id }}</strong>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!-- Medical Records -->
+<div class="card shadow">
+    <div class="card-header bg-success text-white d-flex justify-content-between align-items-center">
+        <h5 class="mb-0"><i class="bi bi-file-medical me-2"></i>Medical History</h5>
+        <span class="badge bg-light text-dark">{{ records|length }} record(s)</span>
+    </div>
+    <div class="card-body p-0">
+        {% if records %}
+        <div class="accordion" id="recordsAccordion">
+            {% for record in records %}
+            <div class="accordion-item border-0 border-bottom">
+                <h2 class="accordion-header">
+                    <button class="accordion-button {% if not loop.first %}collapsed{% endif %} fw-semibold" type="button"
+                            data-bs-toggle="collapse" data-bs-target="#record{{ record.id }}">
+                        <i class="bi bi-calendar-event me-2 text-primary"></i>
+                        {{ record.timestamp.strftime('%d %B %Y — %H:%M') }}
+                        {% if record.diagnosis %}
+                        <span class="badge bg-primary ms-3 fw-normal">{{ record.diagnosis[:40] }}{% if record.diagnosis|length > 40 %}…{% endif %}</span>
+                        {% endif %}
+                    </button>
+                </h2>
+                <div id="record{{ record.id }}" class="accordion-collapse collapse {% if loop.first %}show{% endif %}">
+                    <div class="accordion-body">
+                        <div class="row">
+                            {% if record.diagnosis %}
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-primary fw-bold"><i class="bi bi-clipboard2-pulse me-1"></i>Diagnosis</h6>
+                                <p class="mb-0">{{ record.diagnosis }}</p>
+                            </div>
+                            {% endif %}
+                            {% if record.treatment %}
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-success fw-bold"><i class="bi bi-capsule me-1"></i>Treatment</h6>
+                                <p class="mb-0">{{ record.treatment }}</p>
+                            </div>
+                            {% endif %}
+                            {% if record.tests %}
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-warning fw-bold"><i class="bi bi-eyedropper me-1"></i>Test Results</h6>
+                                <p class="mb-0">{{ record.tests }}</p>
+                            </div>
+                            {% endif %}
+                            {% if record.clinical_notes %}
+                            <div class="col-md-6 mb-3">
+                                <h6 class="text-secondary fw-bold"><i class="bi bi-journal-text me-1"></i>Clinical Notes</h6>
+                                <p class="mb-0">{{ record.clinical_notes }}</p>
+                            </div>
+                            {% endif %}
+                        </div>
+                    </div>
+                </div>
+            </div>
+            {% endfor %}
+        </div>
+        {% else %}
+        <div class="text-center py-5 text-muted">
+            <i class="bi bi-folder2-open display-4 mb-3"></i>
+            <p>No medical records available for this patient.</p>
+        </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}

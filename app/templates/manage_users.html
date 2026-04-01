@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Manage Users - MediShare{% endblock %}
+
+{% block content %}
+<div class="d-flex justify-content-between flex-wrap flex-md-nowrap align-items-center pt-3 pb-2 mb-4 border-bottom">
+    <h1 class="h2">
+        <i class="bi bi-people-gear me-2"></i>Manage Hospital Users
+    </h1>
+    <a href="{{ url_for('hospitals.add_user') }}" class="btn btn-primary">
+        <i class="bi bi-plus-circle me-1"></i>Add User
+    </a>
+</div>
+
+<div class="card shadow">
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-hover">
+                <thead class="table-light">
+                    <tr>
+                        <th>Username</th>
+                        <th>Role</th>
+                        <th>Hospital</th>
+                        <th>Status</th>
+                        <th>Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for user in users %}
+                    <tr>
+                        <td><strong>{{ user.username }}</strong></td>
+                        <td>
+                            <span class="badge {{ 'bg-danger' if user.role == 'admin' else 'bg-info' if user.role == 'staff' else 'bg-success' }}">
+                                {{ user.role|title }}
+                            </span>
+                        </td>
+                        <td>{{ user.hospital.name }}</td>
+                        <td><span class="badge bg-success">Active</span></td>
+                        <td>
+                            <div class="btn-group btn-group-sm" role="group">
+                                <button class="btn btn-outline-primary">Edit</button>
+                                <button class="btn btn-outline-danger confirm-delete" onclick="confirmDelete({{ user.id }})">Delete</button>
+                            </div>
+                        </td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+
+<script>
+function confirmDelete(userId) {
+    if (confirm('Delete this user?')) {
+        // AJAX delete or redirect
+        alert('Delete functionality - implement AJAX');
+    }
+}
+</script>
+{% endblock %}
+
