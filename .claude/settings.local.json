@@ -1,0 +1,8 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(printf 'Flask==3.0.3\\\\nFlask-Bcrypt==1.0.1\\\\nFlask-Login==0.6.3\\\\nFlask-SQLAlchemy==3.1.1\\\\nSQLAlchemy==2.0.43\\\\npsycopg2-binary==2.9.11\\\\npython-dotenv==1.0.1\\\\ngunicorn==25.3.0\\\\nWerkzeug==3.0.3\\\\nbcrypt==5.0.0\\\\nblinker==1.9.0\\\\nclick==8.2.1\\\\nitsdangerous==2.2.0\\\\nJinja2==3.1.6\\\\nMarkupSafe==3.0.2\\\\ngreenlet==3.2.4\\\\n')",
+      "Bash(\"c:/Users/HP/Desktop/P_Record_Sharing_Platform/Patient_Record_Sharing_Platform/requirements.txt\")"
+    ]
+  }
+}
