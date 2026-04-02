@@ -43,7 +43,7 @@ When a patient transfers between hospitals, the receiving facility has no access
 ### 1. Clone the Repository
 
 ```bash
-git clone https://github.com/AHIRWE1/New_Record_Sharing_Platform.git 
+git clone https://github.com/AHIRWE1/Patient_Record_Sharing_Platform.git 
 cd Patient_Record_Sharing_Platform
 ```
 
@@ -156,10 +156,10 @@ This project is deployed on **Render** with **Neon PostgreSQL**.
 
 | Resource            | URL                                                    |
 |---------------------|--------------------------------------------------------|
-| Live App            | _Add your Render URL here_                             |
-| GitHub Repository   | _Add your GitHub repo URL here_                        |
-| SRS Document        | _Add your SRS document link here_                      |
-| Demo Video          | _Add your demo video link here_                        |
+| Live App            | _https://patient-record-sharing-platform-1.onrender.com_ |
+| GitHub Repository   | https://github.com/AHIRWE1/Patient_Record_Sharing_Platform.git |
+| SRS Document        | https://docs.google.com/document/d/1sZScFQKE1Ic_2PamM-1FCWVW_G2LmMmvMHkvS3hW_i0/edit?usp=sharing |
+| Demo Video          | _https://youtu.be/V6VImEk5B2c_ |
 
 ---
 
