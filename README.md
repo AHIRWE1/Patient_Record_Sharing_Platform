@@ -1,6 +1,6 @@
-# MediShare Rwanda — Integrated Patient Record Sharing Platform
+# MediShare Rwanda - Integrated Patient Record Sharing Platform
 
-A web-based platform that enables hospitals across Rwanda to securely register patients, manage medical records, and share patient data with other hospitals during transfers and referrals — with full audit logging and role-based access control.
+A web-based platform that enables hospitals across Rwanda to securely register patients, manage medical records, and share patient data with other hospitals during transfers and referrals - with full audit logging and role-based access control.
 
 ---
 
@@ -12,15 +12,15 @@ When a patient transfers between hospitals, the receiving facility has no access
 
 ## Key Features
 
-- **User Authentication** — Secure login with bcrypt-hashed passwords; three roles: Admin, Staff, Doctor
-- **Role-Based Access Control (RBAC)** — Admins manage users; staff/doctors access records within their hospital
-- **Patient Registration** — Register patients with name, date of birth, gender, and National ID
-- **Medical Record Management** — Add diagnosis, treatment, lab tests, and clinical notes per patient
-- **Inter-Hospital Record Sharing** — Send share requests to other hospitals; approve or reject incoming requests
-- **Shared Record Viewer** — Approved hospitals get read-only access to a patient's full medical history
-- **Dashboard** — Overview of patients, records, pending share requests, and recent activity
-- **Audit Trail** — Every action (login, record creation, share approval) is logged with user and timestamp
-- **About & Help Pages** — In-app guidance for all user roles
+- **User Authentication** - Secure login with bcrypt-hashed passwords; three roles: Admin, Staff, Doctor
+- **Role-Based Access Control (RBAC)** - Admins manage users; staff/doctors access records within their hospital
+- **Patient Registration** - Register patients with name, date of birth, gender, and National ID
+- **Medical Record Management** - Add diagnosis, treatment, lab tests, and clinical notes per patient
+- **Inter-Hospital Record Sharing** - Send share requests to other hospitals; approve or reject incoming requests
+- **Shared Record Viewer** - Approved hospitals get read-only access to a patient's full medical history
+- **Dashboard** - Overview of patients, records, pending share requests, and recent activity
+- **Audit Trail** - Every action (login, record creation, share approval) is logged with user and timestamp
+- **About & Help Pages** - In-app guidance for all user roles
 
 ---
 
@@ -38,7 +38,7 @@ When a patient transfers between hospitals, the receiving facility has no access
 
 ---
 
-## Installation — Step by Step
+## Installation - Step by Step
 
 ### 1. Clone the Repository
 
@@ -53,10 +53,10 @@ cd Patient_Record_Sharing_Platform
 # Create
 python -m venv venv
 
-# Activate — Windows
+# Activate - Windows
 venv\Scripts\activate
 
-# Activate — Mac/Linux
+# Activate - Mac/Linux
 source venv/bin/activate
 ```
 
@@ -92,7 +92,7 @@ Visit `http://127.0.0.1:5000` in your browser.
 
 | Environment | Database  | How it works                                                      |
 |-------------|-----------|-------------------------------------------------------------------|
-| Local dev   | SQLite    | Default — no setup needed. DB file created automatically.         |
+| Local dev   | SQLite    | Default - no setup needed. DB file created automatically.         |
 | Production  | Neon (PG) | Set `DATABASE_URL` env var to your Neon pooled connection string. |
 
 Tables are created automatically on first run via `db.create_all()`.
@@ -142,8 +142,8 @@ This project is deployed on **Render** with **Neon PostgreSQL**.
 1. Push your code to GitHub.
 2. Create a new **Web Service** on [render.com](https://render.com) connected to your repo.
 3. Set the following environment variables in Render's dashboard:
-   - `SECRET_KEY` — a long random string
-   - `DATABASE_URL` — your Neon pooled connection string
+   - `SECRET_KEY` - a long random string
+   - `DATABASE_URL` - your Neon pooled connection string
 4. Set the **Start Command** to:
    ```
    gunicorn run:app
@@ -157,8 +157,8 @@ This project is deployed on **Render** with **Neon PostgreSQL**.
 | Resource            | URL                                                    |
 |---------------------|--------------------------------------------------------|
 | Live App            | _https://patient-record-sharing-platform-1.onrender.com_ |
-| GitHub Repository   | https://github.com/AHIRWE1/Patient_Record_Sharing_Platform.git |
-| SRS Document        | https://docs.google.com/document/d/1sZScFQKE1Ic_2PamM-1FCWVW_G2LmMmvMHkvS3hW_i0/edit?usp=sharing |
+| GitHub Repository   | _https://github.com/AHIRWE1/Patient_Record_Sharing_Platform.git_ |
+| SRS Document        | _https://docs.google.com/document/d/1sZScFQKE1Ic_2PamM-1FCWVW_G2LmMmvMHkvS3hW_i0/edit?usp=sharing_ |
 | Demo Video          | _https://youtu.be/V6VImEk5B2c_ |
 
 ---
